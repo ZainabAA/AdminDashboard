@@ -17,7 +17,6 @@ export class AdminHomeComponent {
   })
 
   constructor(private _loginService: LoginService){
-    _loginService.login( "AliceJ", "");
   }
 
   

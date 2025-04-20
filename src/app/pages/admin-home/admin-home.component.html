@@ -1,1 +1,9 @@
-<p>admin-home works!</p>
+<div class="content">
+    <h2>Welcome: {{userSignal()?.name}}!</h2>
+    <div class="email-data">
+        <img class="verified-logo" src="/assets/verified.png" [hidden]="!userSignal()?.isEmailVerified"/>
+        <p class="m-0">Email: {{userSignal()?.email}}</p>
+    </div>
+    <p>Last Login: {{userSignal()?.lastLogin | date: 'short'}}</p>
+    <p>Status: {{userSignal()?.status}}</p>
+</div>

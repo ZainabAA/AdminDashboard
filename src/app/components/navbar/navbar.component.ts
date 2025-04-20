@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoginService } from '../../services/login/login.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,4 +10,14 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
   isActive: boolean = false;
+  userSignal = this.loginService.user;
+
+  userEffect = () => {
+    this.userSignal = this.loginService.user;
+    console.log("user: ", this.userSignal)
+  }
+
+  constructor(private loginService: LoginService){
+    console.log("user: ", this.userSignal);
+  }
 }

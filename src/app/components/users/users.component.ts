@@ -8,12 +8,14 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-users',
   standalone: true,
   imports: [MatTableModule, MatPaginatorModule, MatCheckboxModule,
-    FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule
+    FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule,
+    MatButtonModule
   ],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
@@ -22,7 +24,7 @@ export class UsersComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
   users = this.usersService.usersList();
-  displayedColumns: string[] = ['name', 'email', 'role', 'status'];
+  displayedColumns: string[] = ['name', 'email', 'role', 'status', 'delete'];
   dataSource = new MatTableDataSource<User>(this.users);
   clickedRow: User | null = null;
   
@@ -36,7 +38,9 @@ export class UsersComponent {
   selection = new SelectionModel<User>(this.allowMultiSelect, this.initialSelection);
 
   usersEffect = effect(() => {
+    console.log(this.usersService.usersList());
     this.users = this.usersService.usersList();
+    this.dataSource = new MatTableDataSource<User>(this.users);
   })
 
   editClickedRow(row: User){
@@ -44,6 +48,11 @@ export class UsersComponent {
     this.nameInput.setValue(this.clickedRow?.name);
     this.emailInput.setValue(this.clickedRow?.email);
     this.roleInput.setValue(this.clickedRow?.role);
+  }
+
+  deleteUser(){
+    if(this.clickedRow)
+      this.usersService.deleteUser(this.clickedRow);
   }
 
   constructor(private usersService: UsersService){

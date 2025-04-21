@@ -1,5 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { User, USERS } from '../../../data/users';
+import { ToastService } from '../toast/toast.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,12 @@ export class UsersService {
     this.usersList.update(current => [...current, user]);
   }
 
-  deleteProduct(id: number){
-    this.usersList.update(current => [...current.filter(user => user.id === id)])
+  deleteUser(user: User){
+    this.usersList.update(current => current.filter(users => users != user));
+    console.log(this.usersList())
   }
 
-  updateProduct(user: User){
+  updateUser(user: User){
     
     this.usersList.update(current => {
       return current.map(usr => {
@@ -26,5 +28,5 @@ export class UsersService {
     })
   }
 
-  constructor() { }
+  constructor(private toastService: ToastService) { }
 }

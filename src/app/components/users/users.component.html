@@ -56,6 +56,15 @@
             '#fadd5f': 'red')"> {{user.status}} </td>
       </ng-container>
   
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let user">
+            @if (clickedRow === user) {
+                <button mat-button (click)="deleteUser()"><img class="icon" src="/assets/delete.png" /></button>
+            }
+        </td>
+      </ng-container>
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr
         mat-row

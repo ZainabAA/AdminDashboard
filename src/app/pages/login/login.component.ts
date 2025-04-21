@@ -20,7 +20,7 @@ export class LoginComponent {
     this.user = this._loginService.user()
     if(this.user){
       console.log("user update: ", this.user)
-      this.router.navigate(['/home']);
+      this.router.navigate(['/admin']);
     }
   });
 
@@ -33,7 +33,7 @@ export class LoginComponent {
       private toastService: ToastService) {
     console.log("user: ", this.user)
     if(this.user)
-      this.router.navigate(['/home']);
+      this.router.navigate(['/admin']);
   }
 
   onFormSubmit(){

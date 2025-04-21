@@ -5,9 +5,23 @@ import { inject } from '@angular/core';
 
 export const routes: Routes = [
     {
-        path: 'home',
+        path: 'admin',
         loadComponent: () => import('./pages/admin-home/admin-home.component').then(c => c.AdminHomeComponent),
-        canActivate: [adminGuardGuard]
+        canActivate: [adminGuardGuard],
+        children: [
+            {
+                path: '',
+                loadComponent: () => import('./components/main/main.component').then(c => c.MainComponent)
+            },
+            {
+                path: 'products',
+                loadComponent: () => import('./components/products/products.component').then(c => c.ProductsComponent)
+            },
+            {
+                path: 'users',
+                loadComponent: () => import('./components/users/users.component').then(c => c.UsersComponent)
+            }
+        ],
     },
     {
         path: '',
@@ -17,10 +31,6 @@ export const routes: Routes = [
     {
         path: 'login',
         loadComponent: () => import('./pages/login/login.component').then(c => c.LoginComponent)
-    },
-    {
-        path: 'products',
-        loadComponent: () => import('./pages/products/products.component').then(c => c.ProductsComponent)
     },
     {
         path: '**',

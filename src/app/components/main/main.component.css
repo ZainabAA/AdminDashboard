@@ -1,0 +1,9 @@
+.email-data{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.verified-logo{
+    height: 50px;
+    width: 50px;
+}

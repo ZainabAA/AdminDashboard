@@ -1,0 +1,5 @@
+<mat-card class="content" *ngFor="let toast of toastService.toasts; let i = index"
+    [style.background]="toast.type == 'error'? 'red': 'green'">
+    {{ toast.message }}
+    <button mat-button (click)="removeToast(i)">X</button>
+</mat-card>

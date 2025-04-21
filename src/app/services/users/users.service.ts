@@ -5,7 +5,6 @@ import { User, USERS } from '../../../data/users';
   providedIn: 'root'
 })
 export class UsersService {
-
   usersList = signal(USERS);
 
   addUser(user: User){

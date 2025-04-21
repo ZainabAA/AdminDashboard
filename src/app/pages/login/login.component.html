@@ -1,4 +1,6 @@
-<form [formGroup]="loginForm" (submit)="onFormSubmit()">
+<div class="main">
+<div class="content">
+<form class="form" [formGroup]="loginForm" (submit)="onFormSubmit()">
 
     <label for="username">Username: </label>
     <input id="username" type="text" formControlName="username">
@@ -6,4 +8,7 @@
     <label for="password">Password: </label>
     <input id="password" type="password" formControlName="password">
   
+    <button type="submit">Login</button>
   </form>
+</div>
+</div>

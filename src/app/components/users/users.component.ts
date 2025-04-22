@@ -12,6 +12,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { MatSelectChange } from '@angular/material/select';
+
 
 @Component({
   selector: 'app-users',
@@ -82,6 +84,13 @@ export class UsersComponent {
     this.users = this.usersService.usersList();
     this.dataSource = new MatTableDataSource<User>(this.users);
   })
+
+  onRoleSelected(event: MatSelectChange){
+    if(this.clickedRow){
+      this.clickedRow.status = event.value ?? this.clickedRow.status
+      this.usersService.updateUser(this.clickedRow);
+    }
+  }
 
   editClickedRow(row: User){
     this.clickedRow = row;

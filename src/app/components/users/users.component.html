@@ -58,7 +58,7 @@
             @if (clickedRow === user) {
                 <mat-form-field>
                     <mat-label>Status</mat-label>
-                    <mat-select [(value)]="user.status">
+                    <mat-select [(value)]="user.status" (selectionChange)="onRoleSelected($event)">
                         @for (stat of statusOpt; track stat) {
                         <mat-option [value]="stat">{{stat}}</mat-option>
                         }

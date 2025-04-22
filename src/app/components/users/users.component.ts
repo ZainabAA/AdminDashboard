@@ -4,14 +4,9 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import { User } from '../../../data/users';
 import { SelectionModel } from '@angular/cdk/collections';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormControl} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
-import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { MatSelectChange } from '@angular/material/select';
 import { FormComponent } from "../form/form.component";
 
@@ -19,8 +14,7 @@ import { FormComponent } from "../form/form.component";
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule, MatCheckboxModule,
-    FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule,
+  imports: [MatTableModule, MatPaginatorModule,
     MatButtonModule, MatSelectModule, FormComponent],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
@@ -37,27 +31,8 @@ export class UsersComponent {
   nameInput = new FormControl<string>(this.clickedRow?.name ?? '');
   emailInput = new FormControl<string>(this.clickedRow?.email ?? '');
   roleInput = new FormControl(this.clickedRow?.role);
-  nameSub = new Subject<string>();
-  // emailInput = new FormControl('');
 
-  initialSelection = [];
-  allowMultiSelect = false;
-  selection = new SelectionModel<User>(this.allowMultiSelect, this.initialSelection);
-
-  ngOnInit() {
-
-    // this.roleInput.valueChanges.pipe(
-    //   debounceTime(3000),
-    //   distinctUntilChanged()
-    // ).subscribe(value => {
-    //   // Call your function here, e.g., performSearch(searchTerm)
-    //   if(this.clickedRow){
-    //     this.clickedRow.role = value ?? this.clickedRow.role
-    //     this.usersService.updateUser(this.clickedRow);
-    //   }
-    // });
-  }
-
+  
   usersEffect = effect(() => {
     console.log(this.usersService.usersList());
     this.users = this.usersService.usersList();
@@ -89,11 +64,27 @@ export class UsersComponent {
       this.usersService.deleteUser(this.clickedRow);
   }
 
-  constructor(private usersService: UsersService){
-    console.log("users: ", this.users)
+  addUser() {
+    const newUser: User = {
+      id: this.users.length+1,
+      name: '',
+      email: '',
+      role: 'customer',
+      status: 'inactive',
+      createdAt: new Date(),
+      lastLogin: null,
+      isEmailVerified: false,
+      avatarUrl: ''
+    };
+    // Set the new row as the clickedRow to enable inline editing
+    this.editClickedRow(newUser);
+    this.usersService.addUser(newUser);
+  
+    // Add the new row to the beginning of the data array
+    this.dataSource.data = [newUser, ...this.dataSource.data];
+  
   }
 
-  ngOnDestroy() {
-    this.nameSub.complete();
+  constructor(private usersService: UsersService){
   }
 }

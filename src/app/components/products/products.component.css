@@ -1,0 +1,26 @@
+.content {
+  width: 100%;
+  margin-bottom: 3rem;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+    word-wrap: break-word;
+  }
+  
+  th, td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .mat-header-cell, .mat-cell {
+    padding: 8px 16px;
+    font-size: 14px;
+    
+  }
+  .icon{
+    height: 25px;
+    width: 25px;
+}

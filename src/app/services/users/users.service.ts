@@ -10,11 +10,12 @@ export class UsersService {
 
   addUser(user: User){
     this.usersList.update(current => [...current, user]);
+    this.toastService.add("user added", "success");
   }
 
   deleteUser(user: User){
     this.usersList.update(current => current.filter(users => users != user));
-    console.log(this.usersList())
+    this.toastService.add("user deleted", "success");
   }
 
   updateUser(user: User){

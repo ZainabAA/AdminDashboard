@@ -1,4 +1,6 @@
-<div class="content mat-elevation-z8">
+<div class="content">
+    <button mat-button (click)="addUser()"><img class="icon" src="/assets/add-button.png" /></button>
+  <div class="content mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
       <!-- Position Column -->
       <ng-container matColumnDef="name">
@@ -81,3 +83,4 @@
                    aria-label="Select page of periodic users">
     </mat-paginator>
   </div>
+</div>

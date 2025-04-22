@@ -1,5 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { Product, PRODUCTS } from '../../../data/products';
+import { ToastService } from '../toast/toast.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +10,12 @@ export class ProductsService {
 
   addProduct(productItem: Product){
     this.productsList.update(current => [...current, productItem]);
+    this.toastService.add("product added", "success");
   }
 
-  deleteProduct(id: number){
-    this.productsList.update(current => [...current.filter(prod => prod.id === id)])
+  deleteProduct(product: Product){
+    this.productsList.update(current => [...current.filter(prod => prod != product)])
+    this.toastService.add("product deleted", "success");
   }
 
   updateProduct(productItem: Product){
@@ -24,6 +27,7 @@ export class ProductsService {
         return prod
       })
     })
+    this.toastService.add("product updated", "success");
   }
-  constructor() { }
+  constructor(private toastService: ToastService) { }
 }

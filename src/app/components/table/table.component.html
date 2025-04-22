@@ -1,0 +1,46 @@
+<!-- <div class="content mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+      
+      <ng-container *ngFor="let col of displayedColumns" [matColumnDef]="col">
+        <th mat-header-cell *matHeaderCellDef> {{ col | titlecase }} </th>
+        
+        <td mat-cell *matCellDef="let user">
+          @if (col === 'delete' && clickedRow === user) {
+            <button mat-button (click)="deleteRow()">
+              <img class="icon" src="/assets/delete.png" />
+            </button>
+          }
+          @else if (clickedRow === user && col !== 'delete') {
+            <app-form 
+              [label]="col" 
+              [initValue]="user[col]" 
+              [inputType]="columnMeta[col]?.type || 'string'"
+              [selectOptions]="columnMeta[col]?.options"
+              (onInputChange)="onInputChange(col, $event)"
+              (onSelectionChange)="col === 'status' && onRoleSelected($event)">
+            </app-form>
+          }
+          @else if (col !== 'delete') {
+            <span [style.color]="col === 'status' ? getStatusColor(user[col]) : ''">
+              {{ user[col] }}
+            </span>
+          }
+        </td>
+      </ng-container>
+      
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr 
+        mat-row 
+        *matRowDef="let row; columns: displayedColumns"
+        (click)="editClickedRow(row)"
+        [class.demo-row-is-clicked]="clickedRow === row">
+      </tr>
+    </table>
+  
+    <mat-paginator 
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+      aria-label="Select page of users">
+    </mat-paginator>
+  </div>
+   -->

@@ -26,6 +26,7 @@ export class UsersService {
         return usr
       })
     })
+    this.toastService.add("user updated", "success");
   }
 
   constructor(private toastService: ToastService) { }

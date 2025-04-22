@@ -7,7 +7,8 @@
             @if (clickedRow === user) {
                 <mat-form-field class="example-full-width">
                     <mat-label>Name</mat-label>
-                    <input matInput value="{{user.name}}" [formControl]="nameInput">
+                    <input #input matInput
+                        [formControl]="nameInput">
                   </mat-form-field>
             }
             @else {
@@ -39,7 +40,7 @@
             @if (clickedRow === user) {
                 <mat-form-field class="example-full-width">
                     <mat-label>Role</mat-label>
-                    <input matInput value="{{user.role}}" [formControl]="nameInput">
+                    <input matInput value="{{user.role}}" [formControl]="roleInput">
                   </mat-form-field>
             }
             @else {
@@ -53,7 +54,21 @@
         <th mat-header-cell *matHeaderCellDef> Status </th>
         <td mat-cell *matCellDef="let user"  
         [style.color]="user.status === 'active'? 'green': (user.status === 'inactive'? 
-            '#fadd5f': 'red')"> {{user.status}} </td>
+            '#fadd5f': 'red')">
+            @if (clickedRow === user) {
+                <mat-form-field>
+                    <mat-label>Status</mat-label>
+                    <mat-select [(value)]="user.status">
+                        @for (stat of statusOpt; track stat) {
+                        <mat-option [value]="stat">{{stat}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            }
+            @else {
+                {{user.status}} 
+            }
+        </td>
       </ng-container>
   
       <ng-container matColumnDef="delete">

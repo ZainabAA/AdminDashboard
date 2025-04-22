@@ -5,11 +5,8 @@
         <th mat-header-cell *matHeaderCellDef> Name </th>
         <td mat-cell *matCellDef="let user"> 
             @if (clickedRow === user) {
-                <mat-form-field class="example-full-width">
-                    <mat-label>Name</mat-label>
-                    <input #input matInput
-                        [formControl]="nameInput">
-                  </mat-form-field>
+                <app-form [label]="'Name'" [initValue]="user.name" [inputType]="'string'"
+                (onInputChange)="onInputChange('name', $event)"></app-form>
             }
             @else {
                 {{user.name}} 
@@ -22,10 +19,8 @@
         <th mat-header-cell *matHeaderCellDef> Email </th>
         <td mat-cell *matCellDef="let user">
             @if (clickedRow === user) {
-                <mat-form-field class="example-full-width">
-                    <mat-label>Email</mat-label>
-                    <input matInput value="{{user.email}}" [formControl]="emailInput">
-                </mat-form-field>
+                <app-form [label]="'Email'" [initValue]="user.email" [inputType]="'string'"
+                (onInputChange)="onInputChange('email', $event)"></app-form>
             }
             @else {
                 {{user.email}} 
@@ -38,10 +33,8 @@
         <th mat-header-cell *matHeaderCellDef> Role </th>
         <td mat-cell *matCellDef="let user">
             @if (clickedRow === user) {
-                <mat-form-field class="example-full-width">
-                    <mat-label>Role</mat-label>
-                    <input matInput value="{{user.role}}" [formControl]="roleInput">
-                  </mat-form-field>
+                <app-form [label]="'Role'" [initValue]="user.role" [inputType]="'string'"
+                (onInputChange)="onInputChange('role', $event)"></app-form>
             }
             @else {
                 {{user.role}} 
@@ -56,14 +49,8 @@
         [style.color]="user.status === 'active'? 'green': (user.status === 'inactive'? 
             '#fadd5f': 'red')">
             @if (clickedRow === user) {
-                <mat-form-field>
-                    <mat-label>Status</mat-label>
-                    <mat-select [(value)]="user.status" (selectionChange)="onRoleSelected($event)">
-                        @for (stat of statusOpt; track stat) {
-                        <mat-option [value]="stat">{{stat}}</mat-option>
-                        }
-                    </mat-select>
-                </mat-form-field>
+                <app-form [label]="'Status'" [initValue]="user.status" [inputType]="'select'"
+                    [selectOptions]="statusOpt" (onSelectionChange)="onRoleSelected($event)"></app-form>
             }
             @else {
                 {{user.status}} 

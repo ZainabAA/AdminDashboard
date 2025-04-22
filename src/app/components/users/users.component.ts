@@ -13,6 +13,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { MatSelectChange } from '@angular/material/select';
+import { FormComponent } from "../form/form.component";
 
 
 @Component({
@@ -20,8 +21,7 @@ import { MatSelectChange } from '@angular/material/select';
   standalone: true,
   imports: [MatTableModule, MatPaginatorModule, MatCheckboxModule,
     FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule,
-    MatButtonModule, MatSelectModule
-  ],
+    MatButtonModule, MatSelectModule, FormComponent],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })
@@ -45,38 +45,17 @@ export class UsersComponent {
   selection = new SelectionModel<User>(this.allowMultiSelect, this.initialSelection);
 
   ngOnInit() {
-    this.nameInput.valueChanges.pipe(
-      debounceTime(3000),
-      distinctUntilChanged()
-    ).subscribe(value => {
-      // Call your function here, e.g., performSearch(searchTerm)
-      if(this.clickedRow){
-        this.clickedRow.name = value ?? this.clickedRow.name
-        this.usersService.updateUser(this.clickedRow);
-      }
-    });
 
-    this.emailInput.valueChanges.pipe(
-      debounceTime(3000),
-      distinctUntilChanged()
-    ).subscribe(value => {
-      // Call your function here, e.g., performSearch(searchTerm)
-      if(this.clickedRow){
-        this.clickedRow.email = value ?? this.clickedRow.email
-        this.usersService.updateUser(this.clickedRow);
-      }
-    });
-
-    this.roleInput.valueChanges.pipe(
-      debounceTime(3000),
-      distinctUntilChanged()
-    ).subscribe(value => {
-      // Call your function here, e.g., performSearch(searchTerm)
-      if(this.clickedRow){
-        this.clickedRow.role = value ?? this.clickedRow.role
-        this.usersService.updateUser(this.clickedRow);
-      }
-    });
+    // this.roleInput.valueChanges.pipe(
+    //   debounceTime(3000),
+    //   distinctUntilChanged()
+    // ).subscribe(value => {
+    //   // Call your function here, e.g., performSearch(searchTerm)
+    //   if(this.clickedRow){
+    //     this.clickedRow.role = value ?? this.clickedRow.role
+    //     this.usersService.updateUser(this.clickedRow);
+    //   }
+    // });
   }
 
   usersEffect = effect(() => {
@@ -92,6 +71,12 @@ export class UsersComponent {
     }
   }
 
+  onInputChange<K extends keyof User>(param: K, value: User[K]){
+    if(this.clickedRow && param in this.clickedRow){
+      this.clickedRow[param] = value ?? this.clickedRow[param]
+      this.usersService.updateUser(this.clickedRow);
+    }
+  }
   editClickedRow(row: User){
     this.clickedRow = row;
     this.nameInput.setValue(this.clickedRow?.name);

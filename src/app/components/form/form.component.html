@@ -1,0 +1,17 @@
+@if(inputType === "select"){
+    <mat-form-field>
+        <mat-label>{{label}}</mat-label>
+        <mat-select [(value)]="initValue" (selectionChange)="triggerSelectionChange($event)">
+            @for (stat of selectOptions; track stat) {
+            <mat-option [value]="stat">{{stat}}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+}
+@else if(inputType === "string"){
+    <mat-form-field class="example-full-width">
+        <mat-label>{{label}}</mat-label>
+        <input #input matInput
+            [formControl]="formCont">
+      </mat-form-field>
+}

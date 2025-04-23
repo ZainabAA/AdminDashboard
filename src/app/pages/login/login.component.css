@@ -14,10 +14,14 @@
     margin-bottom: 3rem;
 }
 
-
-.content {
+.card {
+    padding: 10px;
+    padding-top: 40px;
+    background-color: antiquewhite;
+}
+/* .content {
     display: flex;
     width: 100vw;
     justify-content: center;
     margin-bottom: 3rem;
-  }
+  } */

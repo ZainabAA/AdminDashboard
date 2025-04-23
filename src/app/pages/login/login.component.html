@@ -1,14 +1,19 @@
 <div class="main">
 <div class="content">
+    <mat-card class="card">
 <form class="form" [formGroup]="loginForm" (submit)="onFormSubmit()">
-
-    <label for="username">Username: </label>
-    <input id="username" type="text" formControlName="username">
+    <mat-form-field>
+        <mat-label for="username">Username: </mat-label>
+        <input #input matInput
+            formControlName="username">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label for="username">Password: </mat-label>
+        <input #input matInput
+            formControlName="password" type="password">
+    </mat-form-field>
   
-    <label for="password">Password: </label>
-    <input id="password" type="password" formControlName="password">
-  
-    <button type="submit">Login</button>
-  </form>
+    <button mat-button type="submit">Login</button>
+  </form></mat-card>
 </div>
 </div>

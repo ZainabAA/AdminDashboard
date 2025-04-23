@@ -3,11 +3,16 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { LoginService } from '../../services/login/login.service';
 import { Router } from '@angular/router';
 import { ToastService } from '../../services/toast/toast.service';
-
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule,
+    MatCardModule
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

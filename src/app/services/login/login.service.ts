@@ -17,6 +17,7 @@ export class LoginService {
     sessionStorage.setItem('token', this.tokenSignal());
     let usernameMatch = USER_LOGIN.filter(usr => usr.userName === this.tokenSignal())
     this.user.set(this.userService.usersList().filter(usr => usr.id === usernameMatch[0]?.userId)[0])
+    console.log("user changes");
   }, { allowSignalWrites: true });
 
   getStoredToken() {
@@ -37,6 +38,7 @@ export class LoginService {
           // this.user.set(loggedInUser[0]);
           this.tokenSignal.set(username);
           sessionStorage.setItem('token', this.tokenSignal());
+          this.user.set(loggedInUser[0]);
           this.toastService.add("Logged in", "success");
         }
         else
